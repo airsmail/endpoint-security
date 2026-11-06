@@ -1,0 +1,25 @@
+{
+  "displayName": "Zero-Trust: Require Compliant Device or MFA for Corporate Access",
+  "state": "enabled",
+  "conditions": {
+    "users": {
+      "includeUsers": ["All"],
+      "excludeUsers": ["break-glass-admin@domain.com"]
+    },
+    "applications": {
+      "includeApplications": ["All"]
+    },
+    "clientAppTypes": ["all"],
+    "deviceStates": {
+      "includeStates": ["All"],
+      "excludeStates": ["Compliant"]
+    }
+  },
+  "grantControls": {
+    "operator": "AND",
+    "builtInControls": [
+      "mfa",
+      "compliantDevice"
+    ]
+  }
+}
