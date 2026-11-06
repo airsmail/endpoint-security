@@ -31,6 +31,14 @@ The `conditional_access_policy.json` file contains the Microsoft Graph API expor
 * **MFA Enforcement:** Demands Multi-Factor Authentication for all sign-ins, serving as a secondary perimeter if compliance checks face latency.
 * **Break-Glass Exclusion:** Includes standard enterprise exclusions for emergency access accounts to prevent tenant-wide lockouts.
 
+## 📱 Mobile Application Management (MAM) & BYOD
+The `mam_byod_policy.json` file demonstrates a Data Loss Prevention (DLP) containerization approach for unmanaged personal devices (BYOD).
+
+**Key DLP Controls:**
+* **Data Containerization:** Prevents copying/pasting corporate data from managed apps (Outlook, Teams) to personal apps (WhatsApp, Notes).
+* **Save-As Restrictions:** Blocks saving corporate attachments to local device storage or personal cloud drives (iCloud/Google Drive).
+* **Selective Wipe:** Allows IT to wipe only corporate data upon employee offboarding, leaving personal photos and apps untouched.
+
 ## 🚀 How to Deploy / Import Policies
 These JSON configurations are raw Microsoft Graph API payloads. You can import them directly into your own Entra ID and Intune tenant using standard enterprise automation tools:
 
