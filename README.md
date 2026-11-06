@@ -31,6 +31,29 @@ The `conditional_access_policy.json` file contains the Microsoft Graph API expor
 * **MFA Enforcement:** Demands Multi-Factor Authentication for all sign-ins, serving as a secondary perimeter if compliance checks face latency.
 * **Break-Glass Exclusion:** Includes standard enterprise exclusions for emergency access accounts to prevent tenant-wide lockouts.
 
+### 🚀 How to Deploy / Import Policies
+These JSON configurations are raw Microsoft Graph API payloads. You can import them directly into your own Entra ID and Intune tenant using standard enterprise automation tools:
+
+**Option 1: PowerShell (Microsoft Graph SDK)**
+The fastest way to deploy these policies programmatically is via the Microsoft Graph PowerShell module.
+
+```powershell
+# Connect to your tenant with required scopes
+Connect-MgGraph -Scopes "DeviceManagementConfiguration.ReadWrite.All", "Policy.ReadWrite.ConditionalAccess"
+
+# Example: Deploying the Conditional Access Policy
+$policyJson = Get-Content -Raw -Path .\conditional_access_policy.json | ConvertFrom-Json
+New-MgIdentityConditionalAccessPolicy -BodyParameter $policyJson
+```
+
+**Option 2: Microsoft Graph Explorer**
+For manual testing and validation without PowerShell:
+1. Navigate to [Microsoft Graph Explorer](https://developer.microsoft.com/en-us/graph/graph-explorer).
+2. Sign in with Global Administrator or Intune Administrator privileges.
+3. Change the HTTP method to `POST`.
+4. Paste the contents of the `.json` file into the **Request body**.
+5. Run the query against the corresponding endpoint (e.g., `https://graph.microsoft.com/v1.0/identity/conditionalAccess/policies`).
+
 ## 📱 Mobile Application Management (MAM) & BYOD
 The `mam_byod_policy.json` file demonstrates a Data Loss Prevention (DLP) containerization approach for unmanaged personal devices (BYOD).
 
@@ -39,28 +62,16 @@ The `mam_byod_policy.json` file demonstrates a Data Loss Prevention (DLP) contai
 * **Save-As Restrictions:** Blocks saving corporate attachments to local device storage or personal cloud drives (iCloud/Google Drive).
 * **Selective Wipe:** Allows IT to wipe only corporate data upon employee offboarding, leaving personal photos and apps untouched.
 
-## 🚀 How to Deploy / Import Policies
-These JSON configurations are raw Microsoft Graph API payloads. You can import them directly into your own Entra ID and Intune tenant using standard enterprise automation tools:
+### 🚀 How to Deploy / Import MAM Policies
+This payload targets the Intune App Protection endpoints. You can import it using the Microsoft Graph PowerShell SDK:
 
-**Option 1: PowerShell (Microsoft Graph SDK)**
-The fastest way to deploy these policies programmatically is via the Microsoft Graph PowerShell module.
 ```powershell
-# Connect to your tenant with required scopes
-Connect-MgGraph -Scopes "DeviceManagementConfiguration.ReadWrite.All", "Policy.ReadWrite.ConditionalAccess"
+# Connect with Intune App Management scopes
+Connect-MgGraph -Scopes "DeviceManagementApps.ReadWrite.All"
 
-# Example: Deploying the Conditional Access Policy
-$policyJson = Get-Content -Raw -Path .\conditional_access_policy.json | ConvertFrom-Json
-New-MgIdentityConditionalAccessPolicy -BodyParameter $policyJson
+# Deploy the iOS MAM Policy
+$mamJson = Get-Content -Raw -Path .\mam_byod_policy.json | ConvertFrom-Json
+New-MgDeviceAppManagementIosManagedAppProtection -BodyParameter $mamJson
+```
 
-**Option 2: Microsoft Graph Explorer**
-For manual testing and validation without PowerShell:
-
-Navigate to Microsoft Graph Explorer.
-
-Sign in with Global Administrator or Intune Administrator privileges.
-
-Change the HTTP method to POST.
-
-Paste the contents of the .json file into the Request body.
-
-Run the query against the corresponding endpoint (e.g., https://graph.microsoft.com/v1.0/identity/conditionalAccess/policies for Conditional Access).
+*Note: For manual API testing, POST this JSON payload to `https://graph.microsoft.com/v1.0/deviceAppManagement/iosManagedAppProtections` using Microsoft Graph Explorer.*
