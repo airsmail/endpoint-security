@@ -23,7 +23,13 @@ Included in this repository is the `asr_defender_policy.json` payload, demonstra
 * **USB Execution Control:** Blocks untrusted and unsigned processes from executing directly from removable storage media.
 * **Telemetry & Analytics:** Enforces continuous monitoring of all file activity across the endpoint fleet, feeding telemetry directly into Defender XDR.
 
+## ⚖️ Conditional Access (Entra ID)
+The `conditional_access_policy.json` file contains the Microsoft Graph API export for the core Zero-Trust identity perimeter.
 
+**Policy Mechanics:**
+* **Strict Device Compliance:** Blocks access to all corporate cloud applications (Office 365, Teams, SharePoint) unless the device is marked as "Compliant" by Microsoft Intune.
+* **MFA Enforcement:** Demands Multi-Factor Authentication for all sign-ins, serving as a secondary perimeter if compliance checks face latency.
+* **Break-Glass Exclusion:** Includes standard enterprise exclusions for emergency access accounts to prevent tenant-wide lockouts.
 
 ## 🚀 How to Deploy / Import Policies
 These JSON configurations are raw Microsoft Graph API payloads. You can import them directly into your own Entra ID and Intune tenant using standard enterprise automation tools:
