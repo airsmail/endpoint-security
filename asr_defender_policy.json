@@ -1,0 +1,29 @@
+{
+  "@odata.type": "#microsoft.graph.windows10EndpointProtectionConfiguration",
+  "displayName": "Zero-Trust: ASR & Defender Ransomware Mitigation",
+  "description": "ISO 27001 Compliance: Block malicious Office macros, credential dumping (LSASS), and untrusted USB executions.",
+  "attackSurfaceReductionRules": [
+    {
+      "ruleName": "Block Win32 API calls from Office macros",
+      "ruleId": "92e97fa1-2edf-4476-bdd6-9dd0b4dddc7b",
+      "action": "block"
+    },
+    {
+      "ruleName": "Block credential stealing from the Windows local security authority subsystem (lsass.exe)",
+      "ruleId": "d4f940ab-401b-4efc-aadc-ad5f3c50688a",
+      "action": "block"
+    },
+    {
+      "ruleName": "Block executable content from email client and webmail",
+      "ruleId": "5beb7efe-fd9a-4556-801d-275e5ffc04cc",
+      "action": "block"
+    },
+    {
+      "ruleName": "Block untrusted and unsigned processes that run from USB",
+      "ruleId": "b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4",
+      "action": "block"
+    }
+  ],
+  "smartScreenEnableInShell": true,
+  "defenderMonitorFileActivity": "monitorAllFiles"
+}
