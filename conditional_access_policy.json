@@ -1,25 +1,18 @@
 {
-  "displayName": "Zero-Trust: Require Compliant Device or MFA for Corporate Access",
-  "state": "enabled",
+  "displayName": "Zero-Trust: Require MFA or Compliant Device for Corporate Access",
+  "state": "enabledForReportingButNotEnforced",
   "conditions": {
     "users": {
       "includeUsers": ["All"],
-      "excludeUsers": ["break-glass-admin@domain.com"]
+      "excludeGroups": ["00000000-0000-0000-0000-000000000000"]
     },
     "applications": {
       "includeApplications": ["All"]
     },
-    "clientAppTypes": ["all"],
-    "deviceStates": {
-      "includeStates": ["All"],
-      "excludeStates": ["Compliant"]
-    }
+    "clientAppTypes": ["all"]
   },
   "grantControls": {
-    "operator": "AND",
-    "builtInControls": [
-      "mfa",
-      "compliantDevice"
-    ]
+    "operator": "OR",
+    "builtInControls": ["mfa", "compliantDevice"]
   }
 }
