@@ -1,5 +1,5 @@
 {
-  "displayName": "Zero-Trust: Require MFA or Compliant Device for Corporate Access",
+  "displayName": "Zero-Trust: Require MFA and Compliant Device for Corporate Access",
   "state": "enabledForReportingButNotEnforced",
   "conditions": {
     "users": {
@@ -12,7 +12,7 @@
     "clientAppTypes": ["all"]
   },
   "grantControls": {
-    "operator": "OR",
+    "operator": "AND",
     "builtInControls": ["mfa", "compliantDevice"]
   }
 }
