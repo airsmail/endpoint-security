@@ -7,24 +7,10 @@
   "pinRequired": true,
   "maximumPinRetries": 5,
   "simplePinBlocked": true,
-  "allowedDataStorageServices": ["sharePoint", "oneDriveForBusiness"],
+  "allowedDataStorageLocations": ["sharePoint", "oneDriveForBusiness"],
   "clipboardSharingLevel": "managedAppsWithPasteIn",
   "dataBackupBlocked": true,
   "deviceComplianceRequired": true,
   "saveAsBlocked": true,
-  "minimumRequiredOsVersion": "16.0",
-  "targetApps": [
-    {
-      "mobileAppIdentifier": {
-        "@odata.type": "#microsoft.graph.iosMobileAppIdentifier",
-        "bundleId": "com.microsoft.Office.Outlook"
-      }
-    },
-    {
-      "mobileAppIdentifier": {
-        "@odata.type": "#microsoft.graph.iosMobileAppIdentifier",
-        "bundleId": "com.microsoft.skype.teams"
-      }
-    }
-  ]
+  "minimumRequiredOsVersion": "16.0"
 }
