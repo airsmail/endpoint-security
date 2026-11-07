@@ -1,29 +1,30 @@
 {
   "@odata.type": "#microsoft.graph.iosManagedAppProtection",
   "displayName": "Zero-Trust: BYOD App Protection Policy (MAM)",
-  "description": "Isolates corporate data on personal devices. Enforces PIN, blocks copy/paste to personal apps, and requires OS compliance.",
+  "description": "Isolates corporate data on personal iOS devices. Enforces PIN, restricts copy/paste to personal apps, blocks backup and requires a minimum OS version.",
   "appActionIfDeviceComplianceRequired": "block",
   "appActionIfMaximumPinRetriesExceeded": "wipe",
   "pinRequired": true,
   "maximumPinRetries": 5,
-  "allowedDataStorageServices": [
-    "sharePoint",
-    "oneDriveForBusiness"
-  ],
+  "simplePinBlocked": true,
+  "allowedDataStorageServices": ["sharePoint", "oneDriveForBusiness"],
   "clipboardSharingLevel": "managedAppsWithPasteIn",
   "dataBackupBlocked": true,
   "deviceComplianceRequired": true,
   "saveAsBlocked": true,
-  "simplePinBlocked": true,
   "minimumRequiredOsVersion": "16.0",
-  "apps": [
+  "targetApps": [
     {
-      "@odata.type": "#microsoft.graph.managedMobileApp",
-      "mobileAppIdentifier": "com.microsoft.Office.Outlook"
+      "mobileAppIdentifier": {
+        "@odata.type": "#microsoft.graph.iosMobileAppIdentifier",
+        "bundleId": "com.microsoft.Office.Outlook"
+      }
     },
     {
-      "@odata.type": "#microsoft.graph.managedMobileApp",
-      "mobileAppIdentifier": "com.microsoft.skype.teams"
+      "mobileAppIdentifier": {
+        "@odata.type": "#microsoft.graph.iosMobileAppIdentifier",
+        "bundleId": "com.microsoft.skype.teams"
+      }
     }
   ]
 }
